@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Borrow Request - {{ toy.name }}{% endblock %}
+
+{% block content %}
+<h2>Borrow Request:{{ toy.name }}</h2>
+
+<form method="POST">
+    <div class="mb-3">
+        <label for="firstname" class="form-label">First Name</label>
+        <input type="text" id="firstname" class="form-control" name="firstname"
+               pattern="[A-Za-z]+" title="The name or surname cannot contain numbers or special characters" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="lastname" class="form-label">Last Name</label>
+        <input type="text" id="lastname" class="form-control" name="lastname"
+               pattern="[A-Za-z]+" title="The name or surname cannot contain numbers or special characters" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" name="email" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="text" id="phone" class="form-control" name="phone" pattern="\d{10}" title="Please enter a 10-digit phone number" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="duration" class="form-label">Rental Duration</label>
+        <select id="duration" class="form-select" name="duration" required>
+            <option value="" disabled selected>Please select the borrowing duration</option>
+            <option value="7">7 days</option>
+            <option value="15">15 days</option>
+            <option value="30">30 days</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}

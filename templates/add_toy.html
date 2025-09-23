@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Add Toy{% endblock %}
+{% block content %}
+<h2>Add New Toy</h2>
+
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3"><label class="form-label">Toy ID</label><input name="toy_id" class="form-control" required></div>
+  <div class="mb-3"><label class="form-label">Name</label><input name="name" class="form-control" required></div>
+  <div class="mb-3">
+  <label class="form-label">Age Range</label>
+  <select name="age_range" class="form-select" required>
+    <option value="" selected disabled>Choose A/B/C/D/E</option>
+    {% for code in age_codes %}
+      <option value="{{ code }}">{{ code }}</option>
+    {% endfor %}
+  </select>
+</div>
+<!--  <div class="mb-3"><label class="form-label">Toy Type</label><input name="toy_type" class="form-control"></div>-->
+  <div class="mb-3">
+  <label class="form-label">Toy Type</label>
+  <select name="toy_type" class="form-select">
+    {% for type in toy_types %}
+      <option value="{{ type }}">{{ type }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<!--  <div class="mb-3"><label class="form-label">Keywords</label><input name="keywords" class="form-control"></div>-->
+  <!-- 必选发展技能 -->
+<div class="mb-3">
+  <label class="form-label">Developmental Skill</label>
+  <select name="dev_skill" class="form-select" required>
+    <option value="" disabled selected>Select a skill</option>
+    {% for skill in dev_skills %}
+      <option value="{{ skill }}">{{ skill }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<!-- 必选安全标签 -->
+<div class="mb-3">
+  <label class="form-label">Safety Label</label>
+  <select name="safety" class="form-select" required>
+    <option value="" disabled selected>Select safety level</option>
+    <option value="Safe">Safe</option>
+    <option value="Potential Risk">Potential Risk</option>
+  </select>
+</div>
+
+<!-- 可选关键词输入 -->
+<div class="mb-3">
+  <label class="form-label">Additional Keywords (Optional)</label>
+  <input type="text" name="keyword1" class="form-control mb-1" placeholder="Keyword 1">
+  <input type="text" name="keyword2" class="form-control mb-1" placeholder="Keyword 2">
+  <input type="text" name="keyword3" class="form-control mb-1" placeholder="Keyword 3">
+</div>
+
+
+<!--  <div class="mb-3"><label class="form-label">Image Path</label><input name="image" class="form-control"></div>-->
+ <div class="mb-3">
+    <label class="form-label">Toy Image</label>
+    <input type="file" name="image_file" class="form-control" accept="image/*">
+    <div class="form-text">支持 png/jpg/jpeg/gif/webp，最大 5MB。</div>
+  </div>
+<!--  <button type="submit" class="btn btn-primary">Submit</button>-->
+
+  <div class="mb-3"><label class="form-label">Status</label>
+    <select name="status" class="form-select">
+      <option value="available">Available</option>
+      <option value="borrowed">Borrowed</option>
+      <option value="maintenance">Maintenance</option>
+    </select>
+  </div>
+<!--  <div class="mb-3"><label class="form-label">Rating</label><input name="rating" type="number" step="0.1" class="form-control" required></div>-->
+  <div class="mb-3">
+    <label class="form-label">Rating</label>
+    <input type="number" name="rating" class="form-control" value="default" readonly>
+  </div>
+  <div class="mb-3"><label class="form-label">Brand</label><input name="brand" class="form-control"></div>
+<!--  <div class="mb-3"><label class="form-label">Date Loaned Out (YYYY/MM/DD)</label><input name="date_loaned_out" class="form-control"></div>-->
+<!--  <div class="mb-3"><label class="form-label">Last Checked Date</label><input name="last_checked" class="form-control"></div>-->
+<!--  <div class="mb-3"><label class="form-label">Date Into Stock</label><input name="date_in_stock" class="form-control"></div>-->
+  <div class="mb-3">
+  <label class="form-label">Date Loaned Out</label>
+  <input type="date" name="date_loaned_out" class="form-control">
+  </div>
+
+  <div class="mb-3">
+  <label class="form-label">Last Checked Date</label>
+  <input type="date" name="last_checked" class="form-control">
+  </div>
+
+  <div class="mb-3">
+  <label class="form-label">Date Into Stock</label>
+  <input type="date" name="date_in_stock" class="form-control">
+  </div>
+
+  <div class="mb-3">
+  <label class="form-label">Loan Frequency</label>
+  <select name="loan_frequency" class="form-select" required>
+    <option value="" selected disabled>Choose A/B/C/D/E</option>
+    {% for code in freq_codes %}
+      <option value="{{ code }}">{{ code }}</option>
+    {% endfor %}
+  </select>
+</div>
+  <div class="mb-3"><label class="form-label">Value</label><input name="value" type="number" step="0.01" class="form-control"></div>
+
+  <button type="submit" class="btn btn-success">Confirm Add</button>
+</form>
+{% endblock %}

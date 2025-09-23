@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Toys{% endblock %}
+
+{% block content %}
+<h1>Browse Our Toys</h1>
+
+<!-- 筛选按钮组 -->
+<!--<div class="mb-4">-->
+<!--  <strong>Filter by Type:</strong>-->
+<!--  <a href="{{ url_for('toys') }}" class="btn btn-sm btn-outline-primary {% if not request.args.get('type') %}active{% endif %}">All</a>-->
+<!--  {% for type in toy_types %}-->
+<!--    <a href="{{ url_for('toys') }}?type={{ type }}" class="btn btn-sm btn-outline-primary {% if request.args.get('type') == type %}active{% endif %}">-->
+<!--      {{ type }}-->
+<!--    </a>-->
+<!--  {% endfor %}-->
+<!--</div>-->
+<form method="get" class="mb-4">
+  <div class="row g-2" style="max-width: 600px;">  <!-- 控制总宽度 -->
+    <!-- Toy Type 下拉 -->
+    <div class="col-md-5">
+      <label for="type" class="form-label"><strong>Toy Type</strong></label>
+      <select name="type" class="form-select">
+        <option value="">All</option>
+        {% for type in toy_types %}
+          <option value="{{ type }}" {% if selected_type == type %}selected{% endif %}>{{ type }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Age Range 下拉 -->
+    <div class="col">
+      <label class="form-label"><strong>Age Range</strong></label>
+      <select name="age" class="form-select">
+        <option value="">All</option>
+        {% for age in age_ranges %}
+          <option value="{{ age }}" {% if selected_age == age %}selected{% endif %}>{{ age }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col">
+      <label class="form-label"><strong>Developmental Skill</strong></label>
+       <select name="skill" class="form-select">
+         <option value="">All</option>
+         {% for skill in developmental_skills %}
+            <option value="{{ skill }}" {% if selected_skill == skill %}selected{% endif %}>
+              {{ skill }}
+            </option>
+         {% endfor %}
+       </select>
+    </div>
+
+
+    <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" name="only_available" id="only_available"
+            {% if only_available %}checked{% endif %}>
+        <label class="form-check-label" for="only_available">
+        Only show available toys
+        </label>
+    </div>
+
+
+    <!-- Filter 按钮 -->
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-outline-primary w-100" type="submit">Filter</button>
+    </div>
+  </div>
+</form>
+
+
+<div class="row">
+    {% for toy in toys %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+           <a href="{{ url_for('toy_detail', toy_id=toy.toy_id) }}">
+            <img src="{{ url_for('static', filename=toy.image) }}"
+                 class="card-img-top"
+                 alt="{{ toy.name }}"
+                 style="height: 200px; object-fit: contain;">
+           </a>
+            <div class="card-body">
+                <h5 class="card-title">{{ toy.name }}</h5>
+                <p class="card-text">
+<!--                    <strong>适龄范围：</strong> {{ toy.age_range }}<br>-->
+<!--                    <strong>游戏类型：</strong> {{ toy.toy_type }}<br>-->
+<!--                    <strong>关键词：</strong> {{ toy.keywords }}<br>-->
+                    <strong>Score:</strong> {{ toy.rating if toy.rating else "No rating yet" }}<br>
+                    <strong>Status:</strong>
+                    {% if toy.status == 'available' %}
+                        <span class="text-success">{{ toy.status }}</span>
+                    {% elif toy.status == 'borrowed' %}
+                        <span class="text-danger">{{ toy.status }}</span>
+                    {% else %}
+                        <span class="text-warning">{{ toy.status }}</span>
+                    {% endif %}
+                </p>
+                <a href="{{ url_for('toy_detail', toy_id=toy.toy_id) }}" class="btn btn-primary">Detail</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

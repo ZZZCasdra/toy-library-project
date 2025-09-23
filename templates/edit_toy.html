@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+  <h2 class="mb-4">Edit</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input name="name" class="form-control" value="{{ toy.name }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Brand</label>
+      <input name="brand" class="form-control" value="{{ toy.brand }}">
+    </div>
+    <div class="mb-3">
+  <label class="form-label">Age Range</label>
+  <select name="age_range" class="form-select" required>
+    {% for code in age_codes %}
+      <option value="{{ code }}" {% if toy.age_range == code %}selected{% endif %}>{{ code }}</option>
+    {% endfor %}
+  </select>
+</div>
+    <div class="mb-3">
+      <label class="form-label">Toy Type</label>
+<!--      <input name="toy_type" class="form-control" value="{{ toy.toy_type }}">-->
+      <select name="toy_type" class="form-select">
+       {% for type in toy_types %}
+         <option value="{{ type }}" {% if toy and toy.toy_type == type %}selected{% endif %}>{{ type }}</option>
+       {% endfor %}
+       </select>
+    </div>
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label">Keywords</label>-->
+<!--      <input name="keywords" class="form-control" value="{{ toy.keywords }}">-->
+<!--    </div>-->
+
+    <!-- 替换原先的关键词输入框 -->
+<div class="mb-3">
+  <label class="form-label">Developmental Skill</label>
+  <select name="dev_skill" class="form-select" required>
+    <option value="">Select a skill --</option>
+    {% for skill in dev_skills %}
+      <option value="{{ skill }}" {% if dev_skill == skill %}selected{% endif %}>{{ skill }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Safety</label>
+  <select name="safety" class="form-select" required>
+    <option value="">Select safety level</option>
+    <option value="Safe" {% if safety == 'Safe' %}selected{% endif %}>Safe</option>
+    <option value="Potential Risk" {% if safety == 'Potential Risk' %}selected{% endif %}>Potential Risk</option>
+  </select>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Additional Keywords (Optional)</label>
+  <input type="text" name="extra_keyword1" class="form-control mb-2" placeholder="Keyword 1" value="{{ extra1 }}">
+  <input type="text" name="extra_keyword2" class="form-control mb-2" placeholder="Keyword 2" value="{{ extra2 }}">
+  <input type="text" name="extra_keyword3" class="form-control" placeholder="Keyword 3" value="{{ extra3 }}">
+</div>
+
+
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label">Image Path</label>-->
+<!--      <input name="image" class="form-control" value="{{ toy.image }}">-->
+<!--    </div>-->
+    <div class="mb-3">
+    <label class="form-label">Toy Image</label>
+    <input type="file" name="image_file" class="form-control" accept="image/*">
+    <div class="form-text">支持 png/jpg/jpeg/gif/webp，最大 5MB。</div>
+  </div>
+
+<!--  <button type="submit" class="btn btn-primary">Submit</button>-->
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <select name="status" class="form-select">
+        <option value="available" {% if toy.status == 'available' %}selected{% endif %}>available</option>
+        <option value="borrowed" {% if toy.status == 'borrowed' %}selected{% endif %}>borrowed</option>
+        <option value="maintenance" {% if toy.status == 'maintenance' %}selected{% endif %}>maintenance</option>
+      </select>
+    </div>
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label">Rating</label>-->
+<!--      <input name="rating" type="number" step="0.1" class="form-control" value="{{ toy.rating }}">-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label">Date Loaned Out</label>-->
+<!--      <input name="date_loaned_out" class="form-control" value="{{ toy.date_loaned_out }}">-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label">Last Checked Date</label>-->
+<!--      <input name="last_checked" class="form-control" value="{{ toy.last_checked }}">-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label class="form-label">Date Into Stock</label>-->
+<!--      <input name="date_in_stock" class="form-control" value="{{ toy.date_in_stock }}">-->
+<!--    </div>-->
+      <div class="mb-3">
+  <label class="form-label">Date Loaned Out</label>
+  <input type="date" name="date_loaned_out" class="form-control"
+         value="{{ toy.date_loaned_out.strftime('%Y-%m-%d') if toy.date_loaned_out else '' }}">
+    </div>
+
+    <div class="mb-3">
+  <label class="form-label">Last Checked Date</label>
+  <input type="date" name="last_checked" class="form-control"
+         value="{{ toy.last_checked.strftime('%Y-%m-%d') if toy.last_checked else '' }}">
+    </div>
+
+    <div class="mb-3">
+  <label class="form-label">Date Into Stock</label>
+  <input type="date" name="date_in_stock" class="form-control"
+         value="{{ toy.date_in_stock.strftime('%Y-%m-%d') if toy.date_in_stock else '' }}">
+    </div>
+
+    <div class="mb-3">
+  <label class="form-label">Loan Frequency</label>
+  <select name="loan_frequency" class="form-select" required>
+    {% for code in freq_codes %}
+      <option value="{{ code }}" {% if toy.loan_frequency == code %}selected{% endif %}>{{ code }}</option>
+    {% endfor %}
+  </select>
+</div>
+    <div class="mb-3">
+      <label class="form-label">Value</label>
+      <input name="value" type="number" step="0.01" class="form-control" value="{{ toy.value }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Confirm Edit</button>
+  </form>
+</div>
+{% endblock %}

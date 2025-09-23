@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h3>My Borrowed Toys</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Toy ID</th>
+                <th>Toy Name</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.toy_id }}</td>
+                <td>{{ record.toy_name }}</td>
+                <td>{{ record.duration }}</td>
+                <td>{{ "Returned" if record.returned else "Borrowed" }}</td>
+                <td>
+                    {% if not record.returned %}
+                    <a href="{{ url_for('return_and_rate', record_id=record.id) }}" class="btn btn-sm btn-primary">Return & Rate</a>
+                    {% else %}
+                    <span class="text-success">Completed</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Contact Us - Toy Library{% endblock %}
+
+{% block content %}
+<div class="container my-4" style="max-width: 1000px;">
+
+  <h1 class="h3 mb-4">Contact Us</h1>
+
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="row g-4">
+    <!-- 左侧：联系方式 -->
+    <div class="col-md-5">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Get in touch</h5>
+          <p class="mb-2">
+            <strong>Email:</strong><br>
+            <a href="mailto:hello@toylibrary.org">hello@XXX.com</a>
+          </p>
+          <p class="mb-2">
+            <strong>Phone:</strong><br>
+            +44 1234 567890
+          </p>
+          <p class="mb-2">
+            <strong>Address:</strong><br>
+            123 High Street, Nottingham XXX XXX, UK
+          </p>
+          <hr>
+          <p class="mb-1"><strong>Opening Hours</strong></p>
+          <ul class="mb-0">
+            <li>Mon–Fri: 9:00 – 17:00</li>
+            <li>Sat: 10:00 – 14:00</li>
+            <li>Sun & Holidays: Closed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧：联系表单 -->
+    <div class="col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Send us a message</h5>
+          <form method="POST" action="{{ url_for('contact') }}" novalidate>
+            <div class="mb-3">
+              <label class="form-label">Your Name</label>
+              <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Subject (Optional)</label>
+              <input type="text" name="subject" class="form-control" placeholder="What is this about?">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Message</label>
+              <textarea name="message" class="form-control" rows="5" placeholder="Type your message here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
